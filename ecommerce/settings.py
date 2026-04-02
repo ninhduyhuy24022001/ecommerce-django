@@ -23,8 +23,7 @@ import os
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-kzq%$53vh*!oev8ir7_g!v-l^1d@!$_!$@8wq(yd2145f55fzy'
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -66,6 +65,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerce.urls'
@@ -106,7 +107,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'PASSWORD': os.getenv('DATABASE_URL'),
         'HOST': 'db.gmmslgqhfxgcgrvfxvkt.supabase.co',
         'PORT': 5432,
     }
@@ -151,6 +152,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'static/media'
@@ -165,4 +168,4 @@ EMAIL_USE_TLS = True
 
 # Be sure to read the guide in the resources folder of this lecture (SETUP THE EMAIL BACKEND)
 EMAIL_HOST_USER = 'ninhduyhuy2001@gmail.com'
-EMAIL_HOST_PASSWORD = os.getenv
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
