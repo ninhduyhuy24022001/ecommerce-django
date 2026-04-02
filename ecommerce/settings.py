@@ -17,6 +17,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 import os
 
+os.environ['DJANGO_SETTINGS_MODULE'] = 'ecommerce.settings'
+
 
 
 # Quick-start development settings - unsuitable for production
